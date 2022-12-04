@@ -6,11 +6,6 @@ metadata:
   region: eu-central-1
 
 nodeGroups:
-  - name: ng-1
-    instanceType: t2.small
-    desiredCapacity: 3
-    ssh: # use existing EC2 key
-      publicKeyName: k8s-eks
   - name: scale-eucentral1c
     instanceType: t2.small
     desiredCapacity: 1
@@ -44,7 +39,7 @@ nodeGroups:
       instanceTypes: ["t2.small", "t3.small"]
       onDemandBaseCapacity: 0
       onDemandPercentageAboveBaseCapacity: 0
-    availabilityZones: ["eu-central-1c", "eu-central-1b"]
+    availabilityZones: ["eu-central-1c", "eu-central-1b", "eu-central-1a"]
     iam:
       withAddonPolicies:
         autoScaler: true
@@ -54,4 +49,4 @@ nodeGroups:
     ssh: 
       publicKeyName: k8s-eks
 
-availabilityZones: ["eu-central-1c", "eu-central-1b"]
+availabilityZones: ["eu-central-1c", "eu-central-1b", "eu-central-1a"]
