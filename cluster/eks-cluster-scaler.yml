@@ -1,0 +1,57 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: EKS-cluster-basic
+  region: eu-central-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: t2.small
+    desiredCapacity: 3
+    ssh: # use existing EC2 key
+      publicKeyName: k8s-eks
+  - name: scale-eucentral1c
+    instanceType: t2.small
+    desiredCapacity: 1
+    maxSize: 10
+    availabilityZones: ["eu-central-1c"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateful-eucentral1c
+      instance-type: onDemand
+    ssh: # use existing EC2 key
+      publicKeyName: k8s-eks
+  - name: scale-eucentral1b
+    instanceType: t2.small
+    desiredCapacity: 1
+    maxSize: 10
+    availabilityZones: ["eu-central-1b"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateful-eucentral1b
+      instance-type: onDemand
+    ssh: # use existing EC2 key
+      publicKeyName: k8s-eks
+  - name: scale-spot
+    desiredCapacity: 1
+    maxSize: 10
+    instancesDistribution:
+      instanceTypes: ["t2.small", "t3.small"]
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    availabilityZones: ["eu-central-1c", "eu-central-1b"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateless-workload
+      instance-type: spot
+    ssh: 
+      publicKeyName: k8s-eks
+
+availabilityZones: ["eu-central-1c", "eu-central-1b"]
