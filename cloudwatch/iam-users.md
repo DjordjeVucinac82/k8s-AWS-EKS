@@ -9,7 +9,7 @@ Steps:
 3. add user to configmap aws-auth
 4. add user+accesskey to aws credentials file in dedicated section (profile)
 
-Execution: 
+Execution:
 
 fetch current configmap before adding our user mapping
 
@@ -20,6 +20,7 @@ kubectl -n kube-system get configmap aws-auth -o yaml > aws-auth-configmap.yaml
 ```
 
 #### 44 edit the yaml file and add a "mapUsers" section
+
 ```bash
   mapUsers: |
     - userarn: arn:aws:iam::xxxxxxxxx:user/k8s-cluster-admin
@@ -99,17 +100,19 @@ kubectl apply -f role.yaml rolebinding.yaml
 
 add user to aws-auth configmap
 
-
 Go check 44 up in file, need to add mapUsers (prod-viewer) to config map
+
 ```bash
   mapUsers: |
     - userarn: arn:aws:iam::xxxxxxxxx:user/prod-viewer
       username: prod-viewer
       groups:
         - prod-viewer-role        
-```        
+```
+
 kubecl apply -f aws-auth-configmap.yaml
 add user to ~/.aws/credentials file
+
 ```bash
 [clusteradmin]
 aws_access_key_id=

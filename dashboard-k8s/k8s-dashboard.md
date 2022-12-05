@@ -1,1 +1,1 @@
-https://github.com/kubernetes/dashboard/releases
+<https://github.com/kubernetes/dashboard/releases>
