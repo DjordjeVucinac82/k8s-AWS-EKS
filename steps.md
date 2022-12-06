@@ -98,9 +98,40 @@ namespace/kubernetes-dashboard created \
 `kubectl apply -f dashboard-k8s/admin-service-account.yaml` \
 
 `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')` \
+copy token! \
 `kubectl -n kubernetes-dashboard create token admin-user` neradi \
 
 `kubectl proxy` \
 
 open browser at `http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login` \
 enter token!
+
+# Stateless PHP-Redis
+
+### Redis
+
+Deployment redis master and service \
+`kubectl apply -f stateless-php/redis-master.yaml` \
+`kubectl get pods` \
+`kubectl get services` \
+Deployment redis slaves and service \
+`kubectl apply -f stateless-php/redis-slaves.yaml`
+
+### PHP
+
+Deployment frontend-php app and service \
+`kubectl apply -f stateless-php/frontend.yaml` \
+`kubectl get pods -l app=guestbook -l tier=frontend` \
+grab the public DNS (EXTERNAL-IP) of the frontend service LoadBalancer (ELB): \
+`kubectl ge service frontend` \
+`kubectl describe service frontend` LoadBalancer Ingress:___
+
+### Scaling
+`kubectl scale --replicas 5 deployment frontend` \
+`kubectl get rs` \
+
+
+
+
+
+
