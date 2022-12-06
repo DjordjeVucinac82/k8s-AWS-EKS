@@ -10,20 +10,20 @@ User with admin priv
 ### install kubectl, kubectl version --short --client
 
 TODO
-
-### Create eks cluster \
+https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/ 
+### Create eks cluster 
 
 `eksctl create cluster -f cluster/eks-cluster.yml` \
 `kubectl get nodes` \
 `eksctl get nodegroup --cluster EKS-cluster-basic` \
 `eksctl scale nodegroup --cluster=EKS-cluster-basic --node=5 --name=ng1`
 
-### Update nodegroup \
+### Update nodegroup 
 
 `eksctl create nodegroup --config-file=cluster/eks-cluster-spot-mix.yml --include='ng-mixed'` \
 `eksctl delete nodegroup --config-file=cluster/eks-cluster-spot-mix.yml --include='ng-mixed' --approve`
 
-### Scaler \
+### Scaler 
 
 `eksctl create nodegroup --config-file=cluster/eks-cluster-scaler.yml` \
 `eksctl delete nodegroup -f cluster/eks-cluster-scaler.yml --include='ng-1' --approve`
@@ -69,9 +69,9 @@ path: cloudwatch/container-insights-logging.md
 
 ### IAM users
 
-path: cloudwatch/iam-user.md \
+path: cloudwatch/iam-user.md 
 
-## Network security Calico - optional
+#### Network security Calico - optional
 ## Loadbalancer
 https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
 
@@ -79,7 +79,7 @@ https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
 
 ## Metric Server
 https://github.com/kubernetes-sigs/metrics-server \
-https://artifacthub.io/packages/helm/metrics-server/metrics-server \
+https://artifacthub.io/packages/helm/metrics-server/metrics-server 
 
 `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml` \
 `serviceaccount/metrics-server created` \
@@ -115,7 +115,9 @@ Deployment redis master and service \
 `kubectl get pods` \
 `kubectl get services` \
 Deployment redis slaves and service \
-`kubectl apply -f stateless-php/redis-slaves.yaml`
+`kubectl apply -f stateless-php/redis-slaves.yaml` \
+`kubectl delete -f stateless-php/redis-master.yaml` \
+`k`ubectl delete -f stateless-php/redis-slaves.yaml`
 
 ### PHP
 
@@ -124,11 +126,20 @@ Deployment frontend-php app and service \
 `kubectl get pods -l app=guestbook -l tier=frontend` \
 grab the public DNS (EXTERNAL-IP) of the frontend service LoadBalancer (ELB): \
 `kubectl ge service frontend` \
-`kubectl describe service frontend` LoadBalancer Ingress:___
+`kubectl describe service frontend` LoadBalancer Ingress:___ \
+`kubectl delete -f stateless-php/frontend.yaml` 
 
-### Scaling
+#### Scaling
 `kubectl scale --replicas 5 deployment frontend` \
 `kubectl get rs` \
+
+
+# Wordpress-EFS
+
+
+
+
+
 
 
 
