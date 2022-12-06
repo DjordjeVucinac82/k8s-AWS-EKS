@@ -10,6 +10,7 @@ nodeGroups:
     instanceType: t2.small
     desiredCapacity: 1
     maxSize: 10
+    volumeSize: 20
     availabilityZones: ["eu-central-1c"]
     iam:
       withAddonPolicies:
@@ -23,6 +24,7 @@ nodeGroups:
     instanceType: t2.small
     desiredCapacity: 1
     maxSize: 10
+    volumeSize: 20
     availabilityZones: ["eu-central-1b"]
     iam:
       withAddonPolicies:
@@ -35,6 +37,7 @@ nodeGroups:
   - name: scale-spot
     desiredCapacity: 1
     maxSize: 10
+    volumeSize: 20
     instancesDistribution:
       instanceTypes: ["t2.small", "t3.small"]
       onDemandBaseCapacity: 0

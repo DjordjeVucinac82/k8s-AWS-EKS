@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 metadata:
   name: EKS-course-cluster
-  region: us-east-1
+  region: eu-central-1
 
 nodeGroups:
   - name: ng-1

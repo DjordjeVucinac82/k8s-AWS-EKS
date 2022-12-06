@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: efs-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: efs-provisioner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: efs-provisioner
+    spec:
+      containers:
+        - name: efs-provisioner
+          image: quay.io/external_storage/efs-provisioner:v2.4.0
+          env:
+            - name: FILE_SYSTEM_ID
+              value: fs-0f2d67d51c904ca13
+            - name: AWS_REGION
+              value: eu-cenral-1
+            - name: PROVISIONER_NAME
+              value: eks-wp-efs/aws-efs
+            - name: DNS_NAME
+              value: fs-0f2d67d51c904ca13.efs.eu-central-1.amazonaws.com              
+          volumeMounts:
+            - name: pv-volume
+              mountPath: /persistentvolumes
+              # fs-0f2d67d51c904ca13.efs.eu-central-1.amazonaws.com:/:/persistentvolumes
+      volumes:
+        - name: pv-volume
+          nfs:
+            server: fs-0f2d67d51c904ca13.efs.eu-central-1.amazonaws.com
+            path: /
