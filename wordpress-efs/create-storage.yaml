@@ -2,7 +2,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: aws-efs
-provisioner: eks-course/aws-efs
+provisioner: eks-wp-efs/aws-efs
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
