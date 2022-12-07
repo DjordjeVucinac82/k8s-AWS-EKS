@@ -182,6 +182,6 @@ https://hub.docker.com/_/wordpress \
 output: fs-0f2d67d51c904ca13.efs.eu-central-1.amazonaws.com:/efs-wordpress-pvc-cc2cbf03-3df6-44b4-a4fe-829e679b761c on /var/www/html type nfs4
 `kubectl describe service wordpress --namespace=eks-wp-efs | grep Ingress`
 
-!!!TODO!!!
-Install Prometheus and Grafana Dashboard manifest, 
+!!!TODO!!! \
+Install Prometheus and Grafana Dashboard manifest, \
 Install via helm charts!!!
