@@ -169,6 +169,7 @@ Create mysql password MYSQL_ROOT_PASSWORD \
 `kubectl apply -f wordpress-efs/deploy-mysql.yaml --namespace=eks-wp-efs`
 `kubectl describe pod wordpress-mysql-6bf49d7b9-dzt2v --namespace=eks-wp-efs`
 
+## !!!TODO!!! check compatiblity between database and wordpress versions
 
 ### Deploy Wordpress
 https://codex.wordpress.org/WordPress_Versions \
