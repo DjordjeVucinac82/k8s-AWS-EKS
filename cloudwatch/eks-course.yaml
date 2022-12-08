@@ -10,7 +10,7 @@ nodeGroups:
     instanceType: t2.small
     desiredCapacity: 3
     ssh: # use existing EC2 key
-      publicKeyName: eks-course
+      publicKeyName: k8s-eks
 cloudWatch:
   clusterLogging:
     enableTypes: ["api", "audit", "authenticator"]
