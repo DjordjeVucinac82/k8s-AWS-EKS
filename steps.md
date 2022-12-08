@@ -3,11 +3,36 @@
 Create role for eks wih eksClusterPolicy \
 User with admin priv
 
+
+
 ### Install aws cli, aws --version
 
 ### install eksctl, eksctl version
 
 ### install kubectl, kubectl version --short --client
+
+## Minimum instation
+Create eks cluster with 2 node group \
+`eksctl create cluster -f cluster/eks-cluster.yml` \
+Insall auo-scaler \
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml` \
+Put required annotation to the deployment: \
+`kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/ \ safe-to-evict="false" --overwrite` \
+
+Install kubernetes dashboard \
+`kubectl create namespace kubernetes-dashboard`
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml --namespace=kubernetes-dashboard` \
+Creae admin user in dashboard \
+`kubectl apply -f dashboard-k8s/admin-service-account.yaml --namespace=kubernetes-dashboard` \
+Copy dashboard token \
+`kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`
+Start kubernetes dashboard \
+`kubectl proxy` \
+open browser at `http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login`
+enter token!
+
+
+
 
 TODO
 <https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/>
@@ -145,7 +170,7 @@ Go to AWS Console -> EFS service, and make new efs, name aws-efs, all AZ's \
 Take FilesystemId and DNS Name from EFS, go into provisioner! \
 *specify the security group of your EC2-worker-nodes, to be applied to EFS as well*
 install the package *amazon-efs-utils* on all worker nodes \
-ssh -i k8s-eks.pem ec2-user@18.197.34.156 "sudo yum install -y amazon-efs-utils"
+`ssh -i k8s-eks.pem ec2-user@18.197.34.156 "sudo yum install -y amazon-efs-utils"`
 
 ### create namespaces
 

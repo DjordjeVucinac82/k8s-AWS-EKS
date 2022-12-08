@@ -6,7 +6,26 @@ metadata:
   region: eu-central-1
 
 nodeGroups:
-  - name: scale-spot
+  - name: scale-spotA
+    desiredCapacity: 1
+    maxSize: 10
+    volumeSize: 20
+    instancesDistribution:
+      # maxPrice: 0.2
+      instanceTypes: ["t2.small", "t3.small"]
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    availabilityZones: ["eu-central-1c", "eu-central-1b", "eu-central-1a"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+    labels:
+      nodegroup-type: stateless-workload
+      instance-type: spot
+    ssh: 
+      publicKeyName: k8s-eks
+
+  - name: scale-spotB
     desiredCapacity: 1
     maxSize: 10
     volumeSize: 20
