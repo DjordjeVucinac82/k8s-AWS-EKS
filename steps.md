@@ -12,14 +12,19 @@ User with admin priv
 ### install kubectl, kubectl version --short --client
 
 ## Minimum instation
-Create eks cluster with 2 node group \
+#### Create eks cluster with 2 node group \
 `eksctl create cluster -f cluster/eks-cluster.yml` \
-Insall auo-scaler \
+Insall auto-scaler \
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml` \
 Put required annotation to the deployment: \
-`kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/ \ safe-to-evict="false" --overwrite` \
+`kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict="false" --overwrite` \
+Edit deployment and set your EKS cluster name \
+`kubectl -n kube-system edit deployment.apps/cluster-autoscaler` \
+https://github.com/kubernetes/autoscaler/releases \
+Change under spec ->containers ->command -> --node-group-auto-discovery= put ur cluster name in the end of line EKS-cluster-basic \
+change image option, put autoscaler version {k8s.grc.io/autoscaling/cluster-autoscaler:v1.22.2}
 
-Install kubernetes dashboard \
+#### Install kubernetes dashboard \
 `kubectl create namespace kubernetes-dashboard`
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml --namespace=kubernetes-dashboard` \
 Creae admin user in dashboard \
@@ -69,6 +74,9 @@ Put required annotation to the deployment: \
 
 edit deployment and set your EKS cluster name \
 `kubectl -n kube-system edit deployment.apps/cluster-autoscaler` \
+https://github.com/kubernetes/autoscaler/releases \
+Change under spec ->containers ->command -> --node-group-auto-discovery= put ur cluster name in the end of line EKS-cluster-basic \
+change image option, put auoscaler version {k8s.grc.io/cluster-autoscaler:v1.20.3}
 `kubectl -n kube-system logs deployment.apps/cluster-autoscaler` \
 `kubectl -n kube-system describe deployment cluster-autoscaler`
 
