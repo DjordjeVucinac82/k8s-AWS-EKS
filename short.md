@@ -1,4 +1,4 @@
-## Minimum instalation
+## Minimum instalation Dashboard
 
 #### Create eks cluster with 2 node group t2.small, eu-central-1
 `eksctl create cluster -f cluster/eks-cluster.yml` \
