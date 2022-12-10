@@ -1,9 +1,11 @@
 # Installing Prometheus & Grafana
 
+2 in 1 https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
 ## Prometheus
 Since eksctl out of the box adds storage class "gp2" we will use this for Prometheus data storage.  
 In real world scenarios you may use IO optmized storage, like e.g. _io1_ , for better performance.
 
+#### OLD/stable
 ```bash
 kubectl create namespace prometheus
 helm install prometheus stable/prometheus \
@@ -11,6 +13,8 @@ helm install prometheus stable/prometheus \
     --set alertmanager.persistentVolume.storageClass="gp2" \
     --set server.persistentVolume.storageClass="gp2"
 ```
+
+#### NEW/prometheus-comunity
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
@@ -36,10 +40,10 @@ check:
 ...and grab the port from the output !
 set port forwarding to access Prometheus UI:
 ```bash
-kubectl port-forward svc/prometheus-server 8888:80
+kubectl port-forward svc/prometheus-server 9090:80
 ```
 access Prometheus UI from your *local* browser:
-* http://localhost:8888
+* http://localhost:9090
 
 ## Grafana
 
@@ -93,7 +97,7 @@ grab the ELB URL from the Grafana Loadbalancer, and open it in the browser
 
 In grafana dashboard go to Configuration -> Data sources and check for Prometheus instance
 
-* goto https://grafana.com/grafana/dashboards , search for 'Cluster Monitoring for Kubernetes' (ID: 10000) , and select the *ID* of the dashboard you want to import  
+* go to https://grafana.com/grafana/dashboards , search for 'Cluster Monitoring for Kubernetes' (ID: 10000) nad kube-state-metrics-v2 (13332) , and select the *ID* of the dashboard you want to import  
 * in Grafana click on *+*  Create Dashboards, click *Import* and put the *ID* from the previous step into the text field. Befor importing, check: Unique Identifier (UID)=JABGX_-mz and check Prometheus under prometheus -> Import !!!
 
 
