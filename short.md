@@ -10,7 +10,7 @@ Edit deployment and set your EKS cluster name \
 `kubectl -n kube-system edit deployment.apps/cluster-autoscaler` \
 https://github.com/kubernetes/autoscaler/releases \
 Change under spec ->containers ->command -> --node-group-auto-discovery= put ur cluster name in the end of line EKS-cluster-basic \
-Change image option, put autoscaler version {k8s.grc.io/autoscaling/cluster-autoscaler:v1.22.2}
+Change image option, put autoscaler version {k8s.grc.io/autoscaling/cluster-autoscaler:v1.22.2} \
 Install metric-server \
 `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
 
