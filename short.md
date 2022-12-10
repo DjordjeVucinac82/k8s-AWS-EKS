@@ -11,9 +11,7 @@ Edit deployment and set your EKS cluster name \
 https://github.com/kubernetes/autoscaler/releases \
 Change under spec ->containers ->command -> --node-group-auto-discovery= put ur cluster name in the end of line EKS-cluster-basic \
 Change image option, put autoscaler version {k8s.grc.io/autoscaling/cluster-autoscaler:v1.22.2}
-
-https://github.com/kubernetes-sigs/metrics-server \
-https://artifacthub.io/packages/helm/metrics-server/metrics-server \
+Install metric-server \
 `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
 
 #### Install kubernetes dashboard 
