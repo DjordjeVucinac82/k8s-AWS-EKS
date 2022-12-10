@@ -52,6 +52,11 @@ change image option, put auoscaler version {k8s.grc.io/cluster-autoscaler:v1.20.
 `kubectl -n kube-system logs deployment.apps/cluster-autoscaler` \
 `kubectl -n kube-system describe deployment cluster-autoscaler`
 
+### Metric server
+https://github.com/kubernetes-sigs/metrics-server \
+https://artifacthub.io/packages/helm/metrics-server/metrics-server \
+`kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
+
 ### test the autoscaler
 
 create a deployment of nginx \
