@@ -174,7 +174,7 @@ Create mysql password MYSQL_ROOT_PASSWORD \
 `kubectl apply -f wordpress-efs/deploy-mysql.yaml --namespace=eks-wp-efs`
 `kubectl describe pod wordpress-mysql-6bf49d7b9-dzt2v --namespace=eks-wp-efs`
 
-## !!!TODO!!! check compatiblity between database and wordpress versions
+### !!!TODO!!! check compatiblity between database and wordpress versions
 
 ### Deploy Wordpress
 https://codex.wordpress.org/WordPress_Versions \
@@ -188,6 +188,6 @@ https://hub.docker.com/_/wordpress \
 output: fs-0f2d67d51c904ca13.efs.eu-central-1.amazonaws.com:/efs-wordpress-pvc-cc2cbf03-3df6-44b4-a4fe-829e679b761c on /var/www/html type nfs4
 `kubectl describe service wordpress --namespace=eks-wp-efs | grep Ingress`
 
-!!!TODO!!! \
-Install Prometheus and Grafana Dashboard manifest, \
-Install via helm charts!!!
+## Monioring
+
+Steps are in monitoring/setup.md
